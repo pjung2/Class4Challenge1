@@ -19,7 +19,7 @@
                 String answer = (String)request.getAttribute("answer");
                 
                 // print output
-                out.print("msg = " + msg);
+                out.print(msg);
                 out.print("answer = " + answer);
             %>
                 

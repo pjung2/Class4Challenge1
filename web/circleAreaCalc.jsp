@@ -12,7 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
-        <form id="form" name="form" method="POST" action="CalculatorController.do">
+        <form id="form" name="form" method="POST" action="CircleCalcController.do">
             <h2 style="text-align:center;">
                 Circle Area Calculator
             </h2>

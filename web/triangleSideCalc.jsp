@@ -12,7 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
-        <form id="form" name="form" method="POST" action="CalculatorController.do">
+        <form id="form" name="form" method="POST" action="TriangleCalcController.do">
             <h2 style="text-align:center;">
                 Triangle Side Calculator
             </h2>
@@ -20,10 +20,10 @@
                 <strong>Please Enter two triangle side lengths</strong>
                 <br>
                 <br>
-                First side length:&nbsp&nbsp&nbsp&nbsp&nbsp <input type="text" value="" name="a">
+                First side length:&nbsp&nbsp&nbsp&nbsp&nbsp <input type="text" value="" name="sideOne">
                 <br>
                 <br>
-                Second side length: <input type="text" value="" name="b">
+                Second side length: <input type="text" value="" name="sideTwo">
             </p>
             <input name="btnCalc" type="submit" value="Calculate"/>
         </form>

@@ -16,8 +16,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Chumples
  */
-@WebServlet(name = "CalculatorController", urlPatterns = {"/CalculatorController.do"})
-public class CalculatorController extends HttpServlet {
+@WebServlet(name = "CalculatorController", urlPatterns = {"/RectangleCalcController.do"})
+public class RectangleCalcController extends HttpServlet
+{
    private static final String RESULT_PAGE = "result.jsp";
    private static String answer = "";
    private static String msg = "";
@@ -45,30 +46,23 @@ public class CalculatorController extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+    throws ServletException, IOException
+    {
         processRequest(request, response);  
     }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException
+    {
+ 
+        String paramLength = request.getParameter("length");
+        String paramWidth = request.getParameter("width");
         
+        if(paramLength != null || paramLength.length() != 0 && paramWidth != null || paramWidth.length() != 0)
+        {
+             processRectangle(request, response);
+        }
 
-        // rectangle
-        if (!(request.getParameter("length").isEmpty()) && !(request.getParameter("width").isEmpty())){
-            // request made by rectangle
-            processRectagle(request, response);
-            
-        }
-        else if (!(request.getParameter("radius").isEmpty())){
-            // circle
-            processCircle(request, response);
-            
-        }else{
-            // triangle
-            processTriangle(request, response);
-            
-        }
-        
         // set attributes for result page to retrive
         request.setAttribute("msg", msg);
         request.setAttribute("answer", answer);
@@ -78,90 +72,38 @@ public class CalculatorController extends HttpServlet {
         RequestDispatcher view =
                 request.getRequestDispatcher(RESULT_PAGE);
         view.forward(request, response); 
-
     }
 
     
     // Rectagle
-    public void processRectagle(HttpServletRequest request, HttpServletResponse response){
+    public void processRectangle(HttpServletRequest request, HttpServletResponse response)
+    {
         // parameters are name attributes in view pages
         // Here we're retrieving form content from form.html
         String length = request.getParameter("length");
         String width = request.getParameter("width");
 
-        msg = "The area of your rectangle is ";
+        msg = "The area of the rectangle ";
         answer = getCalculateRectangleArea(length, width);
-    }
-    
-    // Circle
-    public void processCircle(HttpServletRequest request, HttpServletResponse response){
-        // parameters are name attributes in view pages
-        // Here we're retrieving form content from form.html
-        String radius = request.getParameter("radius");
-
-        msg = "The area of your circle is ";
-        answer = getCalculateCircleArea(radius);
-    }
-    
-    // Triangle
-    public void processTriangle(HttpServletRequest request, HttpServletResponse response){
-        // parameters are name attributes in view pages
-        // Here we're retrieving form content from form.html
-        String a = request.getParameter("a");
-        String b = request.getParameter("b");
-
-        msg = "The third side of your triangle is ";
-        answer = getCalculateTriangleSide(a, b);
     }
     
     //-------------------------------------------------------------------
     
     // Calculates area of rectangle
-    public String getCalculateRectangleArea(String length, String width) {
-        String strAnswer = "";
-        
-        try {
+    public String getCalculateRectangleArea(String length, String width)
+    {
+        String strAnswer = "";     
+        try
+        {
         double answer = Double.valueOf(length) * Double.valueOf(width);
         answer = Math.round(answer * 100.0) / 100.0;
         strAnswer = "" + answer;
-        } catch(NumberFormatException nfe) {
+        }
+        catch(NumberFormatException nfe)
+        {
             strAnswer = "There was an error";
         }
-    
     return strAnswer;
-    }
-    
-    // Circle
-    public String getCalculateCircleArea(String radius){
-        String strAnswer = "";
-        double dRadius = Double.valueOf(radius);
-        
-        try {
-        double answer = Math.pow(dRadius, 2) * Math.PI;
-        answer = Math.round( answer * 100.0) / 100.0;
-        strAnswer = "" + answer;
-        } catch(NumberFormatException nfe) {
-            strAnswer = "There was an error";
-        }
-        
-        return strAnswer;
-    }
-         
-    // Triangle
-    public String getCalculateTriangleSide(String a, String b){      
-        String strAnswer = "";
-        
-        double dSide1 = Double.valueOf(a);
-        double dSide2 = Double.valueOf(b);
-        
-        try {
-        double answer = Math.sqrt((Math.pow(dSide1, 2)) + (Math.pow(dSide2, 2)));
-        answer = Math.round( answer * 100.0) / 100.0;
-        strAnswer = "" + answer;
-        } catch(NumberFormatException nfe) {
-            strAnswer = "There was an error";
-        }
-        return strAnswer;
     }
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
